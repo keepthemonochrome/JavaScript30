@@ -58,6 +58,16 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  // can add event listener to document or window
+  document.addEventListener("keydown", function(e){
+    var selectedKey = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    selectedKey.currentTime = 0; //rewind;
+    if(selectedKey){
+      selectedKey.play();
+      // console.log(selectedKey.currentTime);
+    }
+
+  });
 
 </script>
 
