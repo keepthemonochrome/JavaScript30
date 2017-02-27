@@ -60,11 +60,22 @@
 <script>
   // can add event listener to document or window
   document.addEventListener("keydown", function(e){
-    var selectedKey = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    selectedKey.currentTime = 0; //rewind;
-    if(selectedKey){
-      selectedKey.play();
-      // console.log(selectedKey.currentTime);
+    var selectedAudio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    var selectedKey = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    console.log(selectedKey);
+    if(selectedAudio){
+      console.log(selectedKey.classList);
+      // selectedKey.className += " playing";
+      selectedKey.classList.add("playing");
+      selectedAudio.play();
+      selectedAudio.currentTime = 0; //rewind
+      selectedKey.addEventListener("transitionend", () =>
+        selectedKey.classList.remove("playing")
+      );
+      // selectedKey.addEventListener("animationend", () =>
+      //   selectedKey.classList.remove("playing")
+      // );  // doesn't work
+      // what's the diff btw transitionend & animationend?
     }
 
   });
