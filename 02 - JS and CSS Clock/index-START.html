@@ -72,10 +72,8 @@
     function clockTick() {
       var date = new Date(Date.now());
       var hourTick = 90;
-      console.log(date.getHours())
       if(date.getHours()>12){
         hourTick += (date.getHours()-12) / 12 * 360;
-        console.log(hourTick)
       }
       var minuteTick = 90 + date.getMinutes() / 60 * 360;
       var secondTick = 90 + date.getSeconds() / 60 * 360;
