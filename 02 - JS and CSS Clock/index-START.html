@@ -61,12 +61,32 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: right; /* set axis to the middle of clock */
     }
 
   </style>
 
   <script>
 
+    setInterval(clockTick, 1000);
+    function clockTick() {
+      var date = new Date(Date.now());
+      var hourTick = 90;
+      console.log(date.getHours())
+      if(date.getHours()>12){
+        hourTick += (date.getHours()-12) / 12 * 360;
+        console.log(hourTick)
+      }
+      var minuteTick = 90 + date.getMinutes() / 60 * 360;
+      var secondTick = 90 + date.getSeconds() / 60 * 360;
+      console.log(hourTick, minuteTick, secondTick);
+      var hourHand = document.getElementsByClassName("hour-hand")[0];
+      var minuteHand = document.getElementsByClassName("min-hand")[0];
+      var secondHand = document.getElementsByClassName("second-hand")[0];
+      hourHand.style.transform = `rotate(${hourTick}deg)`;
+      minuteHand.style.transform = `rotate(${minuteTick}deg)`;
+      secondHand.style.transform = `rotate(${secondTick}deg)`;
+    }
 
   </script>
 </body>
