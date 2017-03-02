@@ -61,6 +61,8 @@
       background:black;
       position: absolute;
       top:50%;
+      /*transition: all 0.05s; */
+      /* Transition applies the clock tick effect, BUT freaks out when hand reaches 00(or 12 or 0 degree) */
       transform-origin: right; /* set axis to the middle of clock */
     }
 
@@ -68,7 +70,6 @@
 
   <script>
 
-    setInterval(clockTick, 1000);
     function clockTick() {
       var date = new Date(Date.now());
       var hourTick = 90;
@@ -85,6 +86,7 @@
       minuteHand.style.transform = `rotate(${minuteTick}deg)`;
       secondHand.style.transform = `rotate(${secondTick}deg)`;
     }
+    setInterval(clockTick, 1000);
 
   </script>
 </body>
