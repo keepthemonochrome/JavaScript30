@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
+  <link rel="import" href="https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris" crossorigin="anonymous">
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <!-- <script id="wiki" src="https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris"></script> -->
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -31,29 +33,76 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    var filtered = inventors.filter(function(el){
+      if(el.year >= 1500 && el.year < 1600){
+        return el;
+      }
+    });
+    console.log(filtered);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    var mapped = inventors.map(function(el){
+      return el.first + ' ' + el.last;
+    });
+    console.log(mapped);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    var sorted = inventors.sort(function(a,b){
+      // console.log(a,b);
+      return a.year - b.year; // ascending order of year
+    })
+    console.log(sorted);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    var reduced = inventors.reduce(function(sum, inventor){
+      return sum + inventor.passed - inventor.year;
+    },0);
+    console.log(reduced);
 
     // 5. Sort the inventors by years lived
+    var sorted2 = inventors.sort(function(a,b){
+      // console.log(inventor.first ,inventor.passed - inventor.year)
+      return (b.passed - b.year) - (a.passed - a.year);
+    });
+    console.log(sorted2);
+    // console.log(sorted2.map(function(el){ return el.passed-el.year })); // answer checking
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    var link = document.querySelector('link[rel="import"]');
+    console.log(link);
+    var content = link.import;
+    console.log(content);
+    var wiki = content.querySelectorAll('div .mw-catagory-group');
+    console.log(wiki);
+    // console.log(document.getElementById('wiki'));
+    // console.log(d)
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    var sorted3 = people.map( person => person.split(',')[0] ).sort();
+    console.log(sorted3);
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    var reduced2 = data.reduce(function(obj, el){
+      if(!obj[el]){
+        obj[el] = 1;
+      } else {
+        obj[el]++;
+      }
+      return obj;
+    }, {});
+    console.log(reduced2);
 
   </script>
 </body>
 </html>
+
+
