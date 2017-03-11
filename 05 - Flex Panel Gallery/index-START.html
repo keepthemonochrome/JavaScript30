@@ -24,6 +24,7 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
@@ -41,6 +42,11 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+
     }
 
 
@@ -50,11 +56,25 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
+    /* Flex Items or Flex Children */
     .panel > * {
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      /*border: 1px solid red;*/
+      border: 1px solid red;
+      flex: 1 0 auto;  /*flex-grow | flex-shrink | flex-basis*/
+      /*The CSS align-items property defines how the browser distributes space between and around flex items along the cross-axis of their container. This means it works like justify-content but in the perpendicular direction.*/
+      /*The CSS justify-content property defines how the browser distributes space between and around content items along the main-axis of their container.*/
+      align-items: center;
+      justify-content: center;
+
     }
+
+    .panel > *:first-child { transform: translateY(-100%); }
+    .panel.open-active > *:first-child { transform: translateY(0); }
+    .panel > *:last-child { transform: translateY(100%); }
+    .panel.open-active > *:last-child { transform: translateY(0); }
 
     .panel p {
       text-transform: uppercase;
@@ -67,6 +87,7 @@
     }
 
     .panel.open {
+      flex: 5;
       font-size:40px;
     }
 
@@ -107,7 +128,13 @@
   </div>
 
   <script>
-
+    var panels = document.querySelectorAll('.panel');
+    panels.forEach((panel) => {
+      panel.addEventListener('click', (e) => {
+        panel.classList.toggle('open');
+        panel.classList.toggle('open-active');
+      });
+    });
   </script>
 
 
