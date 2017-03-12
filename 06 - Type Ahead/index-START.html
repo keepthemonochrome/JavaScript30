@@ -26,22 +26,19 @@ fetch(endpoint)
   .then(() => {
     var matches = [];
     document.addEventListener('input', (inp)=> {
-      // console.log(inp,'change')
-      console.log(inp.target.value);
-      console.log(JSON.stringify(findMatches(inp.target.value)));
+      console.log('new input:', inp.target.value);
       matches = findMatches(inp.target.value);
       console.log('how many matches?:', matches.length);
+
       // *** Remove all current children
       var element = document.querySelector('.suggestions');
       while( element.firstChild ){
         element.removeChild(element.firstChild);
       }
+
       matches.forEach(match => {
-
-
         var child = document.createElement('li');
         child.innerHTML = `${match.city}, ${match.state}`;
-        console.log('in forEach');
         document.querySelector('.suggestions').appendChild(child);
       });
 
@@ -52,7 +49,10 @@ fetch(endpoint)
 function findMatches(target){ // target currently "new"
 
   var matches = cities.filter((city) => {
-    if(city.city.match(/(.*)new(.*)$/gi) || city.state.match(/(.*)new(.*)$/gi)){
+    var reg = new RegExp('(.*)'+city+'(.*)$','gi');
+    // var reg = new RegExp('(.*)new(.*)$','gi');
+    if(city.city.match(reg) || city.state.match(reg)){
+      console.log('why')
       return city;
     }
   });
