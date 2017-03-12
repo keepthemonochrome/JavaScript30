@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <form class="search-form">
     <input type="text" class="search" placeholder="City or State">
     <ul class="suggestions">
@@ -16,6 +15,72 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = [];
+
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => {
+    cities.push(...data); // ** push each item of data using es6 spread
+  })
+  .then(() => {
+    var matches = [];
+    document.addEventListener('input', (inp)=> {
+      // console.log(inp,'change')
+      console.log(inp.target.value);
+      console.log(JSON.stringify(findMatches(inp.target.value)));
+      matches = findMatches(inp.target.value);
+      console.log('in here', matches);
+      matches.forEach(match => {
+
+        // *** Remove all current children
+        var element = document.querySelector('.suggestions');
+        while( element.firstChild ){
+          element.removeChild(element.firstChild);
+        }
+
+        var child = document.createElement('li');
+        child.innerHTML = match.city; // || match.state
+        console.log('in forEach');
+        document.querySelector('.suggestions').appendChild(child);
+      });
+
+    });
+    return matches;
+  })
+  .then(matches => {
+    // console.log('in here', matches);
+    // matches.forEach(match => {
+    //   var child = document.createElement('li');
+    //   child.innerHTML = match.city; // || match.state
+    //   console.log('in forEach');
+    //   document.querySelector('.suggestions').appendChild(child);
+    // });
+  });
+
+
+
+// console.log(cities) // still appears as []
+
+function findMatches(target){ // target currently "new"
+  // console.log(cities);
+  // var regex =
+  // var matches = [];
+  console.log('findMatches called')
+  var matches = cities.filter((city) => {
+    if(city.city.match(/.new(.*)$/gm)){
+      return city;
+    }
+    // console.log(city.city);
+    // console.log(city.city.match(/.new(.*)$/gm));
+  });
+  // console.log(matches);
+
+  return matches;
+}
+
+// console.log(findMatches('new'));
+// document.addEventListener('input', (inp)=> findMatches(inp.target.value));
 
 </script>
   </body>
