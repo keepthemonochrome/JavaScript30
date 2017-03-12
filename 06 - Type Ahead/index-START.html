@@ -30,57 +30,34 @@ fetch(endpoint)
       console.log(inp.target.value);
       console.log(JSON.stringify(findMatches(inp.target.value)));
       matches = findMatches(inp.target.value);
-      console.log('in here', matches);
+      console.log('how many matches?:', matches.length);
+      // *** Remove all current children
+      var element = document.querySelector('.suggestions');
+      while( element.firstChild ){
+        element.removeChild(element.firstChild);
+      }
       matches.forEach(match => {
 
-        // *** Remove all current children
-        var element = document.querySelector('.suggestions');
-        while( element.firstChild ){
-          element.removeChild(element.firstChild);
-        }
 
         var child = document.createElement('li');
-        child.innerHTML = match.city; // || match.state
+        child.innerHTML = `${match.city}, ${match.state}`;
         console.log('in forEach');
         document.querySelector('.suggestions').appendChild(child);
       });
 
     });
     return matches;
-  })
-  .then(matches => {
-    // console.log('in here', matches);
-    // matches.forEach(match => {
-    //   var child = document.createElement('li');
-    //   child.innerHTML = match.city; // || match.state
-    //   console.log('in forEach');
-    //   document.querySelector('.suggestions').appendChild(child);
-    // });
   });
-
-
-
-// console.log(cities) // still appears as []
 
 function findMatches(target){ // target currently "new"
-  // console.log(cities);
-  // var regex =
-  // var matches = [];
-  console.log('findMatches called')
+
   var matches = cities.filter((city) => {
-    if(city.city.match(/.new(.*)$/gm)){
+    if(city.city.match(/(.*)new(.*)$/gi) || city.state.match(/(.*)new(.*)$/gi)){
       return city;
     }
-    // console.log(city.city);
-    // console.log(city.city.match(/.new(.*)$/gm));
   });
-  // console.log(matches);
-
   return matches;
 }
-
-// console.log(findMatches('new'));
-// document.addEventListener('input', (inp)=> findMatches(inp.target.value));
 
 </script>
   </body>
