@@ -46,15 +46,11 @@ fetch(endpoint)
     return matches;
   });
 
-function findMatches(target){ // target currently "new"
-
+function findMatches(target){
   var matches = cities.filter((city) => {
-    var reg = new RegExp('(.*)'+city+'(.*)$','gi');
-    // var reg = new RegExp('(.*)new(.*)$','gi');
-    if(city.city.match(reg) || city.state.match(reg)){
-      console.log('why')
-      return city;
-    }
+    // var reg = new RegExp('(.*)'+target+'(.*)$','gi');
+    var reg = new RegExp(target,'gi');
+    return city.city.match(reg) || city.state.match(reg)
   });
   return matches;
 }
